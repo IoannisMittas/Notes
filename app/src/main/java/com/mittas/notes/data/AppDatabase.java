@@ -7,7 +7,7 @@ import android.content.Context;
 
 import com.mittas.notes.AppExecutors;
 
-@Database(entities = {Note.class}, version = 1)
+@Database(entities = {NoteEntity.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
