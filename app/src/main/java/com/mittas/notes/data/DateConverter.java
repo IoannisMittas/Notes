@@ -14,32 +14,20 @@
  * limitations under the License.
  */
 
-package com.mittas.notes;
+package com.mittas.notes.data;
 
-import android.app.Application;
+import android.arch.persistence.room.TypeConverter;
 
-import com.mittas.notes.data.AppDatabase;
+import java.util.Date;
 
-
-/**
- * Android Application class. Used for accessing singletons.
- */
-public class BasicApp extends Application {
-
-    private AppExecutors appExecutors;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-        appExecutors = new AppExecutors();
+public class DateConverter {
+    @TypeConverter
+    public static Date toDate(Long timestamp) {
+        return timestamp == null ? null : new Date(timestamp);
     }
 
-    public AppDatabase getDatabase() {
-        return AppDatabase.getInstance(this, appExecutors);
+    @TypeConverter
+    public static Long toTimestamp(Date date) {
+        return date == null ? null : date.getTime();
     }
-
-/*    public DataRepository getRepository() {
-        return DataRepository.getInstance(getDatabase());
-    }*/
 }
