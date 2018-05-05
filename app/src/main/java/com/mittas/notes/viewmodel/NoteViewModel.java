@@ -4,7 +4,6 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
-import android.support.annotation.NonNull;
 
 import com.mittas.notes.BasicApp;
 import com.mittas.notes.data.NoteEntity;
@@ -33,13 +32,9 @@ public class NoteViewModel extends AndroidViewModel{
     }
 
     /**
-     * Expose the LiveData Products query so the UI can observe it.
+     * Expose the LiveData notes query so the UI can observe it.
      */
-    public LiveData<List<NoteEntity>> getNotes() {
+    public LiveData<List<NoteEntity>> getAllNotes() {
         return observableNotes;
     }
-
-
-
-
 }

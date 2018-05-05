@@ -10,7 +10,7 @@ import com.mittas.notes.data.NoteEntity;
 import java.util.List;
 
 /**
- * Repository handling the work with products and comments.
+ * Repository handling the work with notes.
  */
 public class DataRepository {
     private static DataRepository INSTANCE;
@@ -33,7 +33,7 @@ public class DataRepository {
     }
 
     /**
-     * Get the list of products from the database and get notified when the data changes.
+     * Get the list of notes from the database and get notified when the data changes.
      */
     public LiveData<List<NoteEntity>> getAllNotes() {
         return observableNotes;

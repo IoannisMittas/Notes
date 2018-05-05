@@ -11,7 +11,6 @@ import com.mittas.notes.AppExecutors;
 @Database(entities = {NoteEntity.class}, version = 1)
 @TypeConverters({DateConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
-
     private static AppDatabase INSTANCE;
 
     public static final String DATABASE_NAME = "notes-database";
@@ -34,5 +33,4 @@ public abstract class AppDatabase extends RoomDatabase {
         return  Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
                 .build();
     }
-
 }
