@@ -28,6 +28,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull NoteAdapter.ViewHolder holder, int position) {
+        NoteEntity note = noteList.get(position);
+        holder.title.setText(note.getTitle());
+        holder.bodyText.setText(note.getBodyText());
 
     }
 
@@ -36,12 +39,19 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
         return noteList.size();
     }
 
+    public void setNotes(List<NoteEntity> noteList) {
+        this.noteList = noteList;
+        notifyDataSetChanged();
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView nameTextView;
+        private TextView title;
+        private TextView bodyText;
 
         ViewHolder(View view) {
             super(view);
-            nameTextView = view.findViewById(R.id.name_textview);
+            title = view.findViewById(R.id.title_textview);
+            bodyText = view.findViewById(R.id.bodytext_textview);
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.mittas.notes.data;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.util.Date;
@@ -14,14 +13,14 @@ public class NoteEntity {
 
     private String title;
 
-    private String text;
+    private String bodyText;
 
     private Date createdAt;
 
-    public NoteEntity(int id, String title, String text, Date createdAt) {
+    public NoteEntity(int id, String title, String bodyText, Date createdAt) {
         this.id = id;
         this.title = title;
-        this.text = text;
+        this.bodyText = bodyText;
         this.createdAt = createdAt;
     }
 
@@ -41,12 +40,12 @@ public class NoteEntity {
         this.title = title;
     }
 
-    public String getText() {
-        return text;
+    public String getBodyText() {
+        return bodyText;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setBodyText(String bodyText) {
+        this.bodyText = bodyText;
     }
 
     public Date getCreatedAt() {
