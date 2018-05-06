@@ -15,18 +15,14 @@ import android.view.ViewGroup;
 
 import com.mittas.notes.R;
 import com.mittas.notes.data.NoteEntity;
-import com.mittas.notes.viewmodel.NoteViewModel;
+import com.mittas.notes.viewmodel.NoteListViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class NoteListFragment extends Fragment {
     public static final String TAG = "NoteListFragment";
-    private NoteAdapter adapter;
+    private NoteListAdapter adapter;
     private RecyclerView recyclerView;
 
     @Override
@@ -43,7 +39,7 @@ public class NoteListFragment extends Fragment {
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        adapter = new NoteAdapter(new ArrayList<NoteEntity>());
+        adapter = new NoteListAdapter(new ArrayList<NoteEntity>());
         recyclerView.setAdapter(adapter);
 
         return rootView;
@@ -53,13 +49,13 @@ public class NoteListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final NoteViewModel viewModel =
-                ViewModelProviders.of(this).get(NoteViewModel.class);
+        final NoteListViewModel viewModel =
+                ViewModelProviders.of(this).get(NoteListViewModel.class);
 
         subscribeUi(viewModel);
     }
 
-    private void subscribeUi(NoteViewModel viewModel) {
+    private void subscribeUi(NoteListViewModel viewModel) {
         // Update the list when the data changes
         viewModel.getAllNotes().observe(this, new Observer<List<NoteEntity>>() {
             @Override
@@ -68,8 +64,4 @@ public class NoteListFragment extends Fragment {
             }
         });
     }
-
-
-
-
 }

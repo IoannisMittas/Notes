@@ -12,22 +12,22 @@ import com.mittas.notes.data.NoteEntity;
 
 import java.util.List;
 
-public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
+public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHolder>{
     private List<NoteEntity> noteList;
 
-    public NoteAdapter(List<NoteEntity> noteList) {
+    public NoteListAdapter(List<NoteEntity> noteList) {
         this.noteList = noteList;
     }
 
     @NonNull
     @Override
-    public NoteAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new NoteAdapter.ViewHolder(LayoutInflater.from(parent.getContext())
+    public NoteListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new NoteListAdapter.ViewHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.notelist_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NoteAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NoteListAdapter.ViewHolder holder, int position) {
         NoteEntity note = noteList.get(position);
         holder.title.setText(note.getTitle());
         holder.bodyText.setText(note.getBodyText());

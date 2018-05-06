@@ -12,12 +12,12 @@ import java.util.List;
 /**
  * Repository handling the work with notes.
  */
-public class DataRepository {
-    private static DataRepository INSTANCE;
+public class NoteRepository {
+    private static NoteRepository INSTANCE;
     private final AppDatabase database;
     private MediatorLiveData<List<NoteEntity>> observableNotes;
 
-    private DataRepository(final AppDatabase database) {
+    private NoteRepository(final AppDatabase database) {
         this.database = database;
 
         observableNotes = new MediatorLiveData<>();
@@ -25,9 +25,9 @@ public class DataRepository {
                 noteEntities -> observableNotes.postValue(noteEntities));
     }
 
-    public static DataRepository getInstance(final AppDatabase database) {
+    public static NoteRepository getInstance(final AppDatabase database) {
         if (INSTANCE == null) {
-            INSTANCE = new DataRepository(database);
+            INSTANCE = new NoteRepository(database);
         }
         return INSTANCE;
     }
