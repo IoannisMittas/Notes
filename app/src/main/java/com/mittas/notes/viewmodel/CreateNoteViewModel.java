@@ -1,4 +1,4 @@
 package com.mittas.notes.viewmodel;
 
-public class NoteViewModel {
+public class CreateNoteViewModel {
 }

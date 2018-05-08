@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.mittas.notes.R;
 
-public class MainActivity extends AppCompatActivity {
+public class NoteListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
