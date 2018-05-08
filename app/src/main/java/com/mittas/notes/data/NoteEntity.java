@@ -17,8 +17,7 @@ public class NoteEntity {
 
     private Date createdAt;
 
-    public NoteEntity(int id, String title, String bodyText, Date createdAt) {
-        this.id = id;
+    public NoteEntity(String title, String bodyText, Date createdAt) {
         this.title = title;
         this.bodyText = bodyText;
         this.createdAt = createdAt;
