@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mittas.notes.R;
-import com.mittas.notes.data.NoteEntity;
+import com.mittas.notes.data.Note;
 import com.mittas.notes.viewmodel.NoteListViewModel;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class NoteListFragment extends Fragment {
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        adapter = new NoteListAdapter(new ArrayList<NoteEntity>());
+        adapter = new NoteListAdapter(new ArrayList<Note>());
         recyclerView.setAdapter(adapter);
 
         return rootView;
@@ -57,9 +57,9 @@ public class NoteListFragment extends Fragment {
 
     private void subscribeUi(NoteListViewModel viewModel) {
         // Update the list when the data changes
-        viewModel.getAllNotes().observe(this, new Observer<List<NoteEntity>>() {
+        viewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
             @Override
-            public void onChanged(@Nullable List<NoteEntity> notes) {
+            public void onChanged(@Nullable List<Note> notes) {
                adapter.setNotes(notes);
             }
         });

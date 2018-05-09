@@ -15,18 +15,18 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 public interface NoteDao {
 
     @Query("SELECT * FROM notes")
-    LiveData<List<NoteEntity>> getAllNotes();
+    LiveData<List<Note>> getAllNotes();
 
     @Query("SELECT * FROM notes WHERE id = :id")
-    NoteEntity getNoteById(int id);
+    Note getNoteById(int id);
 
     @Insert(onConflict = REPLACE)
-    void insertNote(NoteEntity note);
+    void insertNote(Note note);
 
     @Update
-    void updateNotes(NoteEntity... notes);
+    void updateNotes(Note... notes);
 
     @Delete
-    void deleteNotes(NoteEntity... notes);
+    void deleteNotes(Note... notes);
 
 }

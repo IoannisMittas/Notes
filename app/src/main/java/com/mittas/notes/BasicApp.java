@@ -40,6 +40,6 @@ public class BasicApp extends Application {
     }
 
     public NoteRepository getRepository() {
-        return NoteRepository.getInstance(getDatabase());
+        return NoteRepository.getInstance(getDatabase(), appExecutors);
     }
 }

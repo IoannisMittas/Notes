@@ -8,14 +8,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mittas.notes.R;
-import com.mittas.notes.data.NoteEntity;
+import com.mittas.notes.data.Note;
 
 import java.util.List;
 
 public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHolder>{
-    private List<NoteEntity> noteList;
+    private List<Note> noteList;
 
-    public NoteListAdapter(List<NoteEntity> noteList) {
+    public NoteListAdapter(List<Note> noteList) {
         this.noteList = noteList;
     }
 
@@ -28,7 +28,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull NoteListAdapter.ViewHolder holder, int position) {
-        NoteEntity note = noteList.get(position);
+        Note note = noteList.get(position);
         holder.title.setText(note.getTitle());
         holder.bodyText.setText(note.getBodyText());
 
@@ -39,7 +39,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
         return noteList.size();
     }
 
-    public void setNotes(List<NoteEntity> noteList) {
+    public void setNotes(List<Note> noteList) {
         this.noteList = noteList;
         notifyDataSetChanged();
     }

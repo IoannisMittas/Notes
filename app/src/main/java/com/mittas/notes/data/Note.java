@@ -6,8 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 import java.util.Date;
 
 @Entity(tableName = "notes")
-public class NoteEntity {
-
+public class Note {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
@@ -17,7 +16,7 @@ public class NoteEntity {
 
     private Date createdAt;
 
-    public NoteEntity(String title, String bodyText, Date createdAt) {
+    public Note(String title, String bodyText, Date createdAt) {
         this.title = title;
         this.bodyText = bodyText;
         this.createdAt = createdAt;

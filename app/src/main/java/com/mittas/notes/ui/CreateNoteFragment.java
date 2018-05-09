@@ -3,7 +3,6 @@ package com.mittas.notes.ui;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,11 +12,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.mittas.notes.R;
-import com.mittas.notes.data.NoteEntity;
+import com.mittas.notes.data.Note;
 import com.mittas.notes.viewmodel.CreateNoteViewModel;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -52,7 +49,7 @@ public class CreateNoteFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                backButtonPressed();
+                onBackButtonPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -62,12 +59,12 @@ public class CreateNoteFragment extends Fragment {
     /**
      * // User pressed the back button, save note
      */
-    private void backButtonPressed() {
+    private void onBackButtonPressed() {
         boolean hasTitle = !isEditTextEmpty(titleEditText);
         boolean hasBodyText = !isEditTextEmpty(bodyTextEditText);
 
         if (hasTitle || hasBodyText) {
-            NoteEntity newNote = new NoteEntity(
+            Note newNote = new Note(
                     titleEditText.getText().toString(),
                     bodyTextEditText.getText().toString(),
                     getDate()
@@ -87,6 +84,4 @@ public class CreateNoteFragment extends Fragment {
         }
         return true;
     }
-
-
 }
