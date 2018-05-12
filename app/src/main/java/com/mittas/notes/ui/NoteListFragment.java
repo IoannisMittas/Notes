@@ -3,6 +3,7 @@ package com.mittas.notes.ui;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.support.design.widget.FloatingActionButton;
 
 import com.mittas.notes.R;
 import com.mittas.notes.data.Note;
@@ -41,6 +43,14 @@ public class NoteListFragment extends Fragment {
 
         adapter = new NoteListAdapter(new ArrayList<Note>());
         recyclerView.setAdapter(adapter);
+
+        FloatingActionButton fab = rootView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), CreateNoteActivity.class));
+            }
+        });
 
         return rootView;
     }
