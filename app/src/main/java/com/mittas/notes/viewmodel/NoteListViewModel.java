@@ -20,10 +20,6 @@ public class NoteListViewModel extends AndroidViewModel{
 
         observableNotes = new MediatorLiveData<>();
 
-        // TODO remove it???--------------------------------------------------------------------------------
-        // set by default null, until we get data from the database.
-        // mObservableProducts.setValue(null);
-
         LiveData<List<Note>> notes = ((BasicApp) application).getRepository()
                 .getAllNotes();
 
