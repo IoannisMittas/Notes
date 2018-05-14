@@ -20,6 +20,6 @@
 
         <activity
             android:name=".ui.CreateNoteActivity"
-            android:parentActivityName=".ui.NoteListActivity"></activity>
+            android:parentActivityName=".ui.NoteListActivity"/>
     </application>
 </manifest>

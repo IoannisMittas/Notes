@@ -41,10 +41,6 @@ public class NoteRepository {
         return observableNotes;
     }
 
-    public Note getNoteById(final int noteId) {
-        return database.noteDao().getNoteById(noteId);
-    }
-
     public void addNote(final Note note) {
         if(note != null) {
             executors.diskIO().execute(() -> database.noteDao().insertNote(note));
