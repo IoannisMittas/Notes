@@ -23,7 +23,7 @@ public class NoteListViewModel extends AndroidViewModel{
         LiveData<List<Note>> notes = ((BasicApp) application).getRepository()
                 .getAllNotes();
 
-        // observe the changes of the products from the database and forward them
+        // observe the changes of the notes from the database and forward them
         observableNotes.addSource(notes, observableNotes::setValue);
     }
 

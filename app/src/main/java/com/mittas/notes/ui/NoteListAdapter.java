@@ -14,9 +14,15 @@ import java.util.List;
 
 public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHolder>{
     private List<Note> noteList;
+    private OnItemClickListener listener;
 
-    public NoteListAdapter(List<Note> noteList) {
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public NoteListAdapter(List<Note> noteList, OnItemClickListener listener) {
         this.noteList = noteList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -32,6 +38,12 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
         holder.title.setText(note.getTitle());
         holder.bodyText.setText(note.getBodyText());
 
+        holder.itemView.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(v, position);
+            }
+        }));
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.mittas.notes.ui;
 
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,17 @@ public class CreateNoteFragment extends Fragment {
     private CreateNoteViewModel viewModel;
     private EditText titleEditText;
     private EditText bodyTextEditText;
+
+    private NoteListAdapter.OnItemClickListener itemClickListener = (view, position) -> {
+
+        // Start DetailActivity
+
+
+        //        Intent intent = new Intent(getActivity(), ImagePagerActivity.class);
+//        intent.putExtra(IMAGE_POSITION, position);
+
+        startActivity(intent);
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

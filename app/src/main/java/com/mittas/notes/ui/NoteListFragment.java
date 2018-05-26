@@ -32,17 +32,7 @@ public class NoteListFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_notelist, container, false);
 
-        recyclerView = rootView.findViewById(R.id.recyclerView);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                layoutManager.getOrientation());
-        recyclerView.addItemDecoration(dividerItemDecoration);
-
-        adapter = new NoteListAdapter(new ArrayList<Note>());
-        recyclerView.setAdapter(adapter);
+        setupRecyclerView(rootView);
 
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +45,7 @@ public class NoteListFragment extends Fragment {
         return rootView;
     }
 
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -64,6 +55,21 @@ public class NoteListFragment extends Fragment {
 
         subscribeUi(viewModel);
     }
+
+    private void setupRecyclerView(View rootView) {
+        recyclerView = rootView.findViewById(R.id.recyclerView);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                layoutManager.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
+
+        adapter = new NoteListAdapter(new ArrayList<Note>());
+        recyclerView.setAdapter(adapter);
+    }
+
 
     private void subscribeUi(NoteListViewModel viewModel) {
         // Update the list when the data changes

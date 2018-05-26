@@ -46,5 +46,4 @@ public class NoteRepository {
             executors.diskIO().execute(() -> database.noteDao().insertNote(note));
         }
     }
-
 }
