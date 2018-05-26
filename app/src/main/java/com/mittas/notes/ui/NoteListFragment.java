@@ -27,6 +27,18 @@ public class NoteListFragment extends Fragment {
     private NoteListAdapter adapter;
     private RecyclerView recyclerView;
 
+    private NoteListAdapter.OnItemClickListener itemClickListener = (view, position) -> {
+
+        // Start DetailActivity
+
+
+//        Intent intent = new Intent(getActivity(), ImagePagerActivity.class);
+//        intent.putExtra(IMAGE_POSITION, position);
+//
+//        startActivity(intent);
+    };
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -66,7 +78,7 @@ public class NoteListFragment extends Fragment {
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        adapter = new NoteListAdapter(new ArrayList<Note>());
+        adapter = new NoteListAdapter(new ArrayList<Note>(), itemClickListener);
         recyclerView.setAdapter(adapter);
     }
 

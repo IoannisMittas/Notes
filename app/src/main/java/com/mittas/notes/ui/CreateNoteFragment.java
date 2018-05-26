@@ -27,17 +27,6 @@ public class CreateNoteFragment extends Fragment {
     private EditText titleEditText;
     private EditText bodyTextEditText;
 
-    private NoteListAdapter.OnItemClickListener itemClickListener = (view, position) -> {
-
-        // Start DetailActivity
-
-
-        //        Intent intent = new Intent(getActivity(), ImagePagerActivity.class);
-//        intent.putExtra(IMAGE_POSITION, position);
-
-        startActivity(intent);
-    };
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
