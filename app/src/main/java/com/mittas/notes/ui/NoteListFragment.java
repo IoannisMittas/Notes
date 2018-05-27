@@ -23,7 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NoteListFragment extends Fragment {
-    public static final String TAG = "NoteListFragment";
+    public static final String TAG = "NOTELIST_FRAGMENT";
+    public static final String EXTRA_NOTE_ID = "EXTRA_NOTE_ID";
     private NoteListAdapter adapter;
     private RecyclerView recyclerView;
 

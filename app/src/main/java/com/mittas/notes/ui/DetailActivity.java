@@ -1,5 +1,6 @@
 package com.mittas.notes.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -13,10 +14,16 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         if (savedInstanceState == null) {
-            DetailFragment fragment = new DetailFragment();
+            Intent intent = getIntent();
+            if(intent.hasExtra(NoteListFragment.EXTRA_NOTE_ID)) {
+                String itemId = intent.getStringExtra(NoteListFragment.EXTRA_NOTE_ID);
 
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, fragment, DetailFragment.TAG).commit();
+                DetailFragment fragment = DetailFragment.newInstance(itemId);
+
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.fragment_container, fragment, DetailFragment.TAG).commit();
+            }
         }
     }
+
 }
