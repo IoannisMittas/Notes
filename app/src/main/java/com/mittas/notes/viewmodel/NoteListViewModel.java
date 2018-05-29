@@ -11,8 +11,6 @@ import com.mittas.notes.data.Note;
 import java.util.List;
 
 public class NoteListViewModel extends AndroidViewModel{
-
-    // MediatorLiveData can observe other LiveData objects and react on their emissions.
     private final MediatorLiveData<List<Note>> observableNotes;
 
     public NoteListViewModel(Application application) {
@@ -20,11 +18,11 @@ public class NoteListViewModel extends AndroidViewModel{
 
         observableNotes = new MediatorLiveData<>();
 
-        LiveData<List<Note>> notes = ((BasicApp) application).getRepository()
+        LiveData<List<Note>> notesInput = ((BasicApp) application).getRepository()
                 .getAllNotes();
 
         // observe the changes of the notes from the database and forward them
-        observableNotes.addSource(notes, observableNotes::setValue);
+        observableNotes.addSource(notesInput, (notes) -> observableNotes.setValue(notes));
     }
 
     /**

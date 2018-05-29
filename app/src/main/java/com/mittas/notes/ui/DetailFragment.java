@@ -15,12 +15,12 @@ import com.mittas.notes.R;
 public class DetailFragment extends Fragment {
     public static final String TAG = "DETAIL_FRAGMENT";
     private static final String ARG_NOTE_ID = "NOTE_ID";
-    private String noteId;
+    private int noteId;
 
     @Override
     public void setArguments(Bundle args) {
         super.setArguments(args);
-        this.noteId = args.getString(ARG_NOTE_ID, "Wrong note id in " + TAG);
+        this.noteId = args.getInt(ARG_NOTE_ID, "Wrong note id in " + TAG);
     }
 
     public static DetailFragment newInstance(String noteId) {
@@ -35,6 +35,12 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+
+        if(noteId != null) {
+            // Get note through viewmodel
+
+            // set views accordingly
+        }
 
 //        final ImageView imageView = rootView.findViewById(R.id.imageview);
 //

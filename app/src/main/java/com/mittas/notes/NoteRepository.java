@@ -24,7 +24,7 @@ public class NoteRepository {
 
         observableNotes = new MediatorLiveData<>();
         observableNotes.addSource(this.database.noteDao().getAllNotes(),
-                noteEntities -> observableNotes.postValue(noteEntities));
+                notes -> observableNotes.postValue(notes));
     }
 
     public static NoteRepository getInstance(final AppDatabase database, final AppExecutors executors) {
@@ -41,8 +41,16 @@ public class NoteRepository {
         return observableNotes;
     }
 
+    public LiveData<Note> getNoteById(final int noteId) {
+
+//        Note noote = executors.diskIO().execute(() -> {
+//            final Note note = database.noteDao().getNoteById(noteId);
+//            return note;
+//                });
+    }
+
     public void addNote(final Note note) {
-        if(note != null) {
+        if (note != null) {
             executors.diskIO().execute(() -> database.noteDao().insertNote(note));
         }
     }

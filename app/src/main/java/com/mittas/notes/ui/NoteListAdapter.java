@@ -17,7 +17,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(View view, int noteId);
     }
 
     public NoteListAdapter(List<Note> noteList, OnItemClickListener listener) {
@@ -41,7 +41,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
         holder.itemView.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(v, position);
+                listener.onItemClick(v, note.getId());
             }
         }));
     }

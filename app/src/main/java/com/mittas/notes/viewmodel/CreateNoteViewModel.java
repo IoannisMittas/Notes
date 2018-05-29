@@ -13,7 +13,6 @@ public class CreateNoteViewModel extends AndroidViewModel{
 
     public CreateNoteViewModel(@NonNull Application application) {
         super(application);
-
         noteRepository = ((BasicApp) application).getRepository();
     }
 

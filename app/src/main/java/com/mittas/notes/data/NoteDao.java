@@ -18,7 +18,7 @@ public interface NoteDao {
     LiveData<List<Note>> getAllNotes();
 
     @Query("SELECT * FROM notes WHERE id = :id")
-    Note getNoteById(int id);
+    LiveData<Note> getNoteById(int id);
 
     @Insert(onConflict = REPLACE)
     void insertNote(Note note);
