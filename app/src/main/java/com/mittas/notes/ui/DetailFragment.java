@@ -3,6 +3,7 @@ package com.mittas.notes.ui;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,7 @@ public class DetailFragment extends Fragment {
     @Override
     public void setArguments(Bundle args) {
         super.setArguments(args);
-        this.noteId = args.getInt(ARG_NOTE_ID, "Wrong note id in " + TAG);
+        this.noteId = args.getInt(ARG_NOTE_ID, -1);
     }
 
     public static DetailFragment newInstance(String noteId) {
@@ -36,7 +37,7 @@ public class DetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
-        if(noteId != null) {
+        if(noteId >= 0) {
             // Get note through viewmodel
 
             // set views accordingly
@@ -51,4 +52,8 @@ public class DetailFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
 }

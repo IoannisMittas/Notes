@@ -42,11 +42,7 @@ public class NoteRepository {
     }
 
     public LiveData<Note> getNoteById(final int noteId) {
-
-//        Note noote = executors.diskIO().execute(() -> {
-//            final Note note = database.noteDao().getNoteById(noteId);
-//            return note;
-//                });
+        return database.noteDao().getNoteById(noteId);
     }
 
     public void addNote(final Note note) {
