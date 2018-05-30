@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.support.design.widget.FloatingActionButton;
 
 import com.mittas.notes.R;
 import com.mittas.notes.data.Note;
+import com.mittas.notes.ui.gestures.SimpleItemTouchHelperCallback;
 import com.mittas.notes.viewmodel.NoteListViewModel;
 
 import java.util.ArrayList;
@@ -81,6 +83,11 @@ public class NoteListFragment extends Fragment {
 
         adapter = new NoteListAdapter(new ArrayList<Note>(), itemClickListener, noteSwipeCallback);
         recyclerView.setAdapter(adapter);
+
+        ItemTouchHelper.Callback callback =
+                new SimpleItemTouchHelperCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
     }
 
 
