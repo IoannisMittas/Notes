@@ -50,4 +50,10 @@ public class NoteRepository {
             executors.diskIO().execute(() -> database.noteDao().insertNote(note));
         }
     }
+
+    public void deleteNote(final Note note) {
+        if (note != null) {
+            executors.diskIO().execute(() -> database.noteDao().deleteNotes(note));
+        }
+    }
 }

@@ -9,20 +9,27 @@ import android.widget.TextView;
 
 import com.mittas.notes.R;
 import com.mittas.notes.data.Note;
+import com.mittas.notes.ui.gestures.ItemTouchHelperAdapter;
 
 import java.util.List;
 
-public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHolder>{
+public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHolder> implements ItemTouchHelperAdapter {
     private List<Note> noteList;
-    private OnItemClickListener listener;
+    private OnItemClickListener clickListener;
+    private OnNoteSwipeCallback swipeCallback;
 
     public interface OnItemClickListener {
         void onItemClick(View view, int noteId);
     }
 
-    public NoteListAdapter(List<Note> noteList, OnItemClickListener listener) {
+    public interface OnNoteSwipeCallback {
+        void onNoteSwipe(Note note, int direction);
+    }
+
+    public NoteListAdapter(List<Note> noteList, OnItemClickListener clickListener, OnNoteSwipeCallback swipeCallback) {
         this.noteList = noteList;
-        this.listener = listener;
+        this.clickListener = clickListener;
+        this.swipeCallback = swipeCallback;
     }
 
     @NonNull
@@ -41,7 +48,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
         holder.itemView.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(v, note.getId());
+                clickListener.onItemClick(v, note.getId());
             }
         }));
     }
@@ -54,6 +61,24 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
     public void setNotes(List<Note> noteList) {
         this.noteList = noteList;
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        // Do nothing
+    }
+
+    /**
+     * Called on swiping
+     *
+     * @param position The position of the item dismissed.
+     * @param direction The direction of the swiping.
+     */
+    @Override
+    public void onItemDismiss(int position, int direction) {
+        Note note = noteList.get(position);
+        swipeCallback.onNoteSwipe(note, direction);
+        notifyItemRemoved(position);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

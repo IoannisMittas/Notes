@@ -25,6 +25,7 @@ import java.util.List;
 public class NoteListFragment extends Fragment {
     public static final String TAG = "NOTELIST_FRAGMENT ";
     public static final String EXTRA_NOTE_ID = "EXTRA_NOTE_ID";
+    NoteListViewModel viewModel;
     private NoteListAdapter adapter;
     private RecyclerView recyclerView;
 
@@ -33,6 +34,10 @@ public class NoteListFragment extends Fragment {
         Intent intent = new Intent(getActivity(), DetailActivity.class);
         intent.putExtra(EXTRA_NOTE_ID, noteId);
         startActivity(intent);
+    };
+
+    private NoteListAdapter.OnNoteSwipeCallback noteSwipeCallback = (note, direction) -> {
+        viewModel.deleteNote(note);
     };
 
 
@@ -59,10 +64,9 @@ public class NoteListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final NoteListViewModel viewModel =
-                ViewModelProviders.of(this).get(NoteListViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(NoteListViewModel.class);
 
-        subscribeUi(viewModel);
+        subscribeUi();
     }
 
     private void setupRecyclerView(View rootView) {
@@ -75,17 +79,17 @@ public class NoteListFragment extends Fragment {
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        adapter = new NoteListAdapter(new ArrayList<Note>(), itemClickListener);
+        adapter = new NoteListAdapter(new ArrayList<Note>(), itemClickListener, noteSwipeCallback);
         recyclerView.setAdapter(adapter);
     }
 
 
-    private void subscribeUi(NoteListViewModel viewModel) {
+    private void subscribeUi() {
         // Update the list when the data changes
         viewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(@Nullable List<Note> notes) {
-               adapter.setNotes(notes);
+                adapter.setNotes(notes);
             }
         });
     }
