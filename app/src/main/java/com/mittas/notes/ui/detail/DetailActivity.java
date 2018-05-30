@@ -1,4 +1,4 @@
-package com.mittas.notes.ui;
+package com.mittas.notes.ui.detail;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.mittas.notes.R;
+import com.mittas.notes.ui.list.NoteListFragment;
 
 public class DetailActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.mittas.notes.ui.gestures;
+package com.mittas.notes.ui.list.gestures;
 
 /**
  * Created by John on 22-Mar-18.

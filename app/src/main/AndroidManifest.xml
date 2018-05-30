@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.NoteListActivity">
+        <activity android:name=".ui.list.NoteListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,12 +20,12 @@
         </activity>
 
         <activity
-            android:name=".ui.CreateNoteActivity"
-            android:parentActivityName=".ui.NoteListActivity" />
+            android:name=".ui.create.CreateNoteActivity"
+            android:parentActivityName=".ui.list.NoteListActivity" />
 
         <activity
-            android:name=".ui.DetailActivity"
-            android:parentActivityName=".ui.NoteListActivity" />
+            android:name=".ui.detail.DetailActivity"
+            android:parentActivityName=".ui.list.NoteListActivity" />
     </application>
 
 </manifest>

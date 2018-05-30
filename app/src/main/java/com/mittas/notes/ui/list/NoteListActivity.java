@@ -1,4 +1,4 @@
-package com.mittas.notes.ui;
+package com.mittas.notes.ui.list;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

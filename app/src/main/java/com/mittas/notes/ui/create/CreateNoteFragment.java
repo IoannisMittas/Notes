@@ -1,4 +1,4 @@
-package com.mittas.notes.ui;
+package com.mittas.notes.ui.create;
 
 
 import android.arch.lifecycle.ViewModelProviders;

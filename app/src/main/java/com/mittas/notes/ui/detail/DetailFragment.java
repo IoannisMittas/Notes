@@ -1,6 +1,5 @@
-package com.mittas.notes.ui;
+package com.mittas.notes.ui.detail;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,15 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mittas.notes.R;
-import com.mittas.notes.data.Note;
 import com.mittas.notes.viewmodel.DetailViewModel;
-import com.mittas.notes.viewmodel.NoteListViewModel;
-
-import java.util.List;
 
 public class DetailFragment extends Fragment {
     public static final String TAG = "DETAIL_FRAGMENT";

@@ -1,4 +1,4 @@
-package com.mittas.notes.ui;
+package com.mittas.notes.ui.list;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.mittas.notes.R;
 import com.mittas.notes.data.Note;
-import com.mittas.notes.ui.gestures.ItemTouchHelperAdapter;
+import com.mittas.notes.ui.list.gestures.ItemTouchHelperAdapter;
 
 import java.util.List;
 

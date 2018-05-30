@@ -1,4 +1,4 @@
-package com.mittas.notes.ui.gestures;
+package com.mittas.notes.ui.list.gestures;
 
 import android.support.v7.widget.RecyclerView;
 

@@ -1,4 +1,4 @@
-package com.mittas.notes.ui;
+package com.mittas.notes.ui.list;
 
 
 import android.arch.lifecycle.Observer;
@@ -18,7 +18,9 @@ import android.support.design.widget.FloatingActionButton;
 
 import com.mittas.notes.R;
 import com.mittas.notes.data.Note;
-import com.mittas.notes.ui.gestures.SimpleItemTouchHelperCallback;
+import com.mittas.notes.ui.create.CreateNoteActivity;
+import com.mittas.notes.ui.detail.DetailActivity;
+import com.mittas.notes.ui.list.gestures.SimpleItemTouchHelperCallback;
 import com.mittas.notes.viewmodel.NoteListViewModel;
 
 import java.util.ArrayList;
