@@ -3,25 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:minHeight="48dp"
     android:gravity="center_vertical">
 
     <TextView
         android:id="@+id/title_textview"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:textSize="24dp"
-        android:textColor="@android:color/black"
-        tools:text = "test"/>
+        android:textStyle="bold"
+        tools:text="Shopping list" />
 
     <TextView
         android:id="@+id/bodytext_textview"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="24dp"
-        android:textColor="@android:color/black"
-        tools:text ="test"/>
+        android:maxHeight="26dp"
+        android:textSize="18dp"
+        tools:text="Clothes, the whole city of Los Angeles, laptop, nuclear warheads, 80 lamborginis aventador, sadlkfjsalfkdsajkfa, dsa;ofkjsadfl;ksdjflsdak;f, sadflksajfas
+asadlkfjsadfkl;dsaflksadjfklsad,sd fsadkfjsdalf;jsdal;fjsadlkfjsadlfjsdalk;fjdsakfjsdajfklsajfsa;ljfewiofasodivjn io;ajf waeoghaewea" />
 </LinearLayout>

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Notes</string>
 
+    <string name="title_activity_notelist">@string/app_name</string>
+    <string name="title_activity_detail">Details</string>
     <string name="title_activity_create_note">Create note</string>
 
     <string name="text_input_hint_create_title">Title</string>

@@ -10,12 +10,16 @@
         android:id="@+id/text_view_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Groceries"/>
+        android:layout_marginBottom="4dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:text="Groceries" />
 
     <TextView
         android:id="@+id/text_view_body_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text = "buy everything in the store"/>
+        android:textSize="18sp"
+        tools:text="buy everything in the store" />
 
 </LinearLayout>

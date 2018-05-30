@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".ui.NoteListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,10 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.CreateNoteActivity"
             android:parentActivityName=".ui.NoteListActivity" />
-        <activity android:name=".ui.DetailActivity"></activity>
+
+        <activity
+            android:name=".ui.DetailActivity"
+            android:parentActivityName=".ui.NoteListActivity" />
     </application>
 
 </manifest>

@@ -6,13 +6,13 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_create_note"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:elevation="4dp"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:title="@string/title_activity_create_note" />
+        android:minHeight="?attr/actionBarSize"
+        app:theme="@style/Toolbar"
+        app:title="@string/title_activity_create_note"/>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/fragment_container"
