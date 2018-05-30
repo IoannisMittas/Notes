@@ -16,10 +16,12 @@ public class DetailActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             Intent intent = getIntent();
             if(intent.hasExtra(NoteListFragment.EXTRA_NOTE_ID)) {
-                String itemId = intent.getStringExtra(NoteListFragment.EXTRA_NOTE_ID);
+                int itemId = intent.getIntExtra(NoteListFragment.EXTRA_NOTE_ID, -1);
 
                 DetailFragment fragment = DetailFragment.newInstance(itemId);
 
+
+                // TODO: maybe not save == null, maybe replace instead of add
                 getSupportFragmentManager().beginTransaction()
                         .add(R.id.fragment_container, fragment, DetailFragment.TAG).commit();
             }
