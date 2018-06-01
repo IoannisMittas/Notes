@@ -53,12 +53,8 @@ public class NoteListFragment extends Fragment {
         setupRecyclerView(rootView);
 
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), CreateNoteActivity.class));
-            }
-        });
+        fab.setOnClickListener(view ->
+                startActivity(new Intent(getActivity(), CreateNoteActivity.class)));
 
         return rootView;
     }
@@ -94,7 +90,6 @@ public class NoteListFragment extends Fragment {
 
 
     private void subscribeUi() {
-        // Update the list when the data changes
         viewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(@Nullable List<Note> notes) {

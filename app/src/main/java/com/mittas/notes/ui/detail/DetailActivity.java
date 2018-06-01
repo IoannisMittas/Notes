@@ -26,7 +26,6 @@ public class DetailActivity extends AppCompatActivity {
 
                 DetailFragment fragment = DetailFragment.newInstance(itemId);
 
-                // TODO: maybe not save == null, maybe replace instead of add
                 getSupportFragmentManager().beginTransaction()
                         .add(R.id.fragment_container, fragment, DetailFragment.TAG).commit();
             }
