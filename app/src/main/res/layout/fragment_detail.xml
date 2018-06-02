@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="4dp"
     android:orientation="vertical">
 
     <EditText
@@ -23,5 +24,4 @@
         android:cursorVisible="false"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         tools:text="buy everything in the store" />
-
 </LinearLayout>

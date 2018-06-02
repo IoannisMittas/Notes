@@ -6,7 +6,7 @@
     <string name="title_activity_create_note">Create note</string>
 
     <string name="text_input_hint_create_title">Title</string>
-    <string name="text_input_hint_create_body_text">Note</string>
+    <string name="text_input_hint_create_body_text">Text</string>
 
 
 
