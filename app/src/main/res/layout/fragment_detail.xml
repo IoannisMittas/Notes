@@ -6,20 +6,24 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text_view_title"
+    <EditText
+        android:id="@+id/edit_text_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:background="@null"
+        android:cursorVisible="false"
         tools:text="Groceries" />
 
-    <TextView
-        android:id="@+id/text_view_body_text"
+    <EditText
+        android:id="@+id/edit_text_body_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:background="@null"
+        android:cursorVisible="false"
         tools:text="buy everything in the store" />
 
 </LinearLayout>
