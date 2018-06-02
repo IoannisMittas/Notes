@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,20 +9,19 @@
         android:id="@+id/edit_text_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:layout_marginBottom="6dp"
         android:background="@null"
         android:cursorVisible="false"
+        android:textAppearance="@android:style/TextAppearance.Material.Headline"
         tools:text="Groceries" />
 
     <EditText
         android:id="@+id/edit_text_body_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
         android:background="@null"
         android:cursorVisible="false"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
         tools:text="buy everything in the store" />
 
 </LinearLayout>
