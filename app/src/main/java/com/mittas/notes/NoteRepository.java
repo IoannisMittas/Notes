@@ -51,6 +51,10 @@ public class NoteRepository {
         }
     }
 
+    public void updateNoteById(int noteId, String title, String bodyText) {
+        executors.diskIO().execute(() -> database.noteDao().updateNoteById(noteId, title, bodyText));
+    }
+
     public void deleteNote(final Note note) {
         if (note != null) {
             executors.diskIO().execute(() -> database.noteDao().deleteNotes(note));

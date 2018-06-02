@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mittas.notes.R;
+import com.mittas.notes.data.Note;
 import com.mittas.notes.viewmodel.DetailViewModel;
 
 public class DetailFragment extends Fragment {
@@ -23,6 +25,7 @@ public class DetailFragment extends Fragment {
     private static final String ARG_NOTE_ID = "NOTE_ID";
     private int noteId;
 
+    private DetailViewModel viewModel;
     private EditText titleEditText;
     private EditText bodyTextEditText;
 
@@ -45,8 +48,9 @@ public class DetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
-        setViews(rootView);
+        setHasOptionsMenu(true);
 
+        setViews(rootView);
 
         return rootView;
     }
@@ -55,13 +59,32 @@ public class DetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final DetailViewModel viewModel =
-                ViewModelProviders.of(this).get(DetailViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
 
-        subscribeUi(viewModel);
+        subscribeUi();
     }
 
-    private void subscribeUi(DetailViewModel viewModel) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackButtonPressed();
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * // User pressed the back button, update note
+     */
+    private void onBackButtonPressed() {
+        String editedTitle = titleEditText.getText().toString();
+        String editedBodyText = bodyTextEditText.getText().toString();
+        viewModel.updateNoteById(noteId, editedTitle, editedBodyText);
+    }
+
+    private void subscribeUi() {
         viewModel.getNoteById(noteId).observe(this, note -> {
             if (note != null) {
                 titleEditText.setText(note.getTitle());

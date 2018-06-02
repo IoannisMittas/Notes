@@ -23,8 +23,8 @@ public interface NoteDao {
     @Insert(onConflict = REPLACE)
     void insertNote(Note note);
 
-    @Update
-    void updateNotes(Note... notes);
+    @Query("UPDATE notes SET title = :title, bodytext = :bodyText WHERE id = :id")
+    void updateNoteById(int id, String title, String bodyText);
 
     @Delete
     void deleteNotes(Note... notes);

@@ -9,9 +9,11 @@ import android.arch.lifecycle.Transformations;
 import android.support.annotation.NonNull;
 
 import com.mittas.notes.BasicApp;
+import com.mittas.notes.NoteRepository;
 import com.mittas.notes.data.Note;
 
 public class DetailViewModel extends AndroidViewModel {
+    private final NoteRepository repository;
     private final LiveData<Note> observableNote;
     private final MutableLiveData<Integer> idInput;
 
@@ -19,10 +21,12 @@ public class DetailViewModel extends AndroidViewModel {
     public DetailViewModel(@NonNull Application application) {
         super(application);
 
+        repository = ((BasicApp) application).getRepository();
+
         idInput = new MutableLiveData<>();
 
         observableNote = Transformations.switchMap(idInput, id ->
-             ((BasicApp) application).getRepository().getNoteById(id));
+             repository.getNoteById(id));
     }
 
     public LiveData<Note> getNoteById(int noteId) {
@@ -30,9 +34,11 @@ public class DetailViewModel extends AndroidViewModel {
         return observableNote;
     }
 
+    public void updateNoteById(int noteId, String title, String bodyText) {
+        repository.updateNoteById(noteId, title, bodyText);
+    }
+
     private void setNoteId(int noteId) {
         this.idInput.setValue(noteId);
     }
-
-
 }
