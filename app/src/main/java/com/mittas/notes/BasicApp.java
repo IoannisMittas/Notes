@@ -36,7 +36,7 @@ public class BasicApp extends Application {
     }
 
     public AppDatabase getDatabase() {
-        return AppDatabase.getInstance(this, appExecutors);
+        return AppDatabase.getInstance(this);
     }
 
     public NoteRepository getRepository() {

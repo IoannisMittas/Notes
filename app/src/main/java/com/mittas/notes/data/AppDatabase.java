@@ -17,9 +17,9 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract NoteDao noteDao();
 
-    public static AppDatabase getInstance(final Context context, final AppExecutors executors) {
+    public static AppDatabase getInstance(final Context context) {
         if (INSTANCE == null) {
-            INSTANCE = buildDatabase(context.getApplicationContext(), executors);
+            INSTANCE = buildDatabase(context.getApplicationContext());
         }
         return INSTANCE;
     }
@@ -28,8 +28,7 @@ public abstract class AppDatabase extends RoomDatabase {
         INSTANCE = null;
     }
 
-    private static AppDatabase buildDatabase(final Context appContext, final AppExecutors executors) {
-        // TODO needs executors here?----------------------------------------------------------------------------------
+    private static AppDatabase buildDatabase(final Context appContext) {
         return  Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
                 .build();
     }
