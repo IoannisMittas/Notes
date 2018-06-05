@@ -4,7 +4,7 @@ package com.mittas.notes;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 
-import com.mittas.notes.data.AppDatabase;
+import com.mittas.notes.data.LocalDatabase;
 import com.mittas.notes.data.Note;
 
 import java.util.List;
@@ -14,11 +14,11 @@ import java.util.List;
  */
 public class NoteRepository {
     private static NoteRepository INSTANCE;
-    private final AppDatabase database;
+    private final LocalDatabase database;
     private final AppExecutors executors;
     private MediatorLiveData<List<Note>> observableNotes;
 
-    private NoteRepository(final AppDatabase database, final AppExecutors executors) {
+    private NoteRepository(final LocalDatabase database, final AppExecutors executors) {
         this.database = database;
         this.executors = executors;
 
@@ -27,7 +27,7 @@ public class NoteRepository {
                 notes -> observableNotes.postValue(notes));
     }
 
-    public static NoteRepository getInstance(final AppDatabase database, final AppExecutors executors) {
+    public static NoteRepository getInstance(final LocalDatabase database, final AppExecutors executors) {
         if (INSTANCE == null) {
             INSTANCE = new NoteRepository(database, executors);
         }

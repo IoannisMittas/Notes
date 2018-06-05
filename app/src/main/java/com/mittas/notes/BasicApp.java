@@ -18,7 +18,9 @@ package com.mittas.notes;
 
 import android.app.Application;
 
-import com.mittas.notes.data.AppDatabase;
+import com.google.firebase.database.DatabaseReference;
+import com.mittas.notes.data.FirebaseDbHolder;
+import com.mittas.notes.data.LocalDatabase;
 
 
 /**
@@ -35,11 +37,15 @@ public class BasicApp extends Application {
         appExecutors = new AppExecutors();
     }
 
-    public AppDatabase getDatabase() {
-        return AppDatabase.getInstance(this);
+    public LocalDatabase getLocalDatabase() {
+        return LocalDatabase.getInstance(this);
+    }
+
+    public DatabaseReference getRemoteDatabase() {
+        return FirebaseDbHolder.getInstance().getDatabase();
     }
 
     public NoteRepository getRepository() {
-        return NoteRepository.getInstance(getDatabase(), appExecutors);
+        return NoteRepository.getInstance(getLocalDatabase(), appExecutors);
     }
 }

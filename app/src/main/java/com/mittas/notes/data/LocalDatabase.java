@@ -6,18 +6,16 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
-import com.mittas.notes.AppExecutors;
-
 @Database(entities = {Note.class}, version = 1)
 @TypeConverters({DateConverter.class})
-public abstract class AppDatabase extends RoomDatabase {
-    private static AppDatabase INSTANCE;
+public abstract class LocalDatabase extends RoomDatabase {
+    private static LocalDatabase INSTANCE;
 
-    public static final String DATABASE_NAME = "notes-database";
+    public static final String DATABASE_NAME = "notes_local_database";
 
     public abstract NoteDao noteDao();
 
-    public static AppDatabase getInstance(final Context context) {
+    public static LocalDatabase getInstance(final Context context) {
         if (INSTANCE == null) {
             INSTANCE = buildDatabase(context.getApplicationContext());
         }
@@ -28,8 +26,8 @@ public abstract class AppDatabase extends RoomDatabase {
         INSTANCE = null;
     }
 
-    private static AppDatabase buildDatabase(final Context appContext) {
-        return  Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
+    private static LocalDatabase buildDatabase(final Context appContext) {
+        return  Room.databaseBuilder(appContext, LocalDatabase.class, DATABASE_NAME)
                 .build();
     }
 }
