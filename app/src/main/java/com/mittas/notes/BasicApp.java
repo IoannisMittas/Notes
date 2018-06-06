@@ -41,11 +41,11 @@ public class BasicApp extends Application {
         return LocalDatabase.getInstance(this);
     }
 
-    public DatabaseReference getRemoteDatabase() {
+    public DatabaseReference getFirebaseDb() {
         return FirebaseDbHolder.getInstance().getDatabase();
     }
 
     public NoteRepository getRepository() {
-        return NoteRepository.getInstance(getLocalDatabase(), appExecutors);
+        return NoteRepository.getInstance(getLocalDatabase(), getFirebaseDb(), appExecutors);
     }
 }
