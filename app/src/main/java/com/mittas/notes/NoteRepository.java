@@ -3,12 +3,15 @@ package com.mittas.notes;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
+import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 import com.mittas.notes.data.LocalDatabase;
 import com.mittas.notes.data.Note;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Repository handling the work with notes.
@@ -50,12 +53,21 @@ public class NoteRepository {
 
     public void addNote(final Note note) {
         if (note != null) {
-            executors.diskIO().execute(() -> localDb.noteDao().insertNote(note));
+            executors.diskIO().execute(() -> {
+                long noteId = localDb.noteDao().insertNote(note);
+
+                firebaseDb.child("notes").child(Long.toString(noteId)).setValue(note);
+            });
         }
     }
 
     public void updateNoteById(int noteId, String title, String bodyText) {
         executors.diskIO().execute(() -> localDb.noteDao().updateNoteById(noteId, title, bodyText));
+
+        HashMap<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/notes/" + noteId + "/title", title);
+        childUpdates.put("/notes/" + noteId + "//bodyText", bodyText);
+        firebaseDb.updateChildren(childUpdates);
     }
 
     public void deleteNote(final Note note) {

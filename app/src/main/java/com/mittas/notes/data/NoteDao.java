@@ -21,7 +21,7 @@ public interface NoteDao {
     LiveData<Note> getNoteById(int id);
 
     @Insert(onConflict = REPLACE)
-    void insertNote(Note note);
+    long insertNote(Note note);
 
     @Query("UPDATE notes SET title = :title, bodytext = :bodyText WHERE id = :id")
     void updateNoteById(int id, String title, String bodyText);
