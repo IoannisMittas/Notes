@@ -66,13 +66,16 @@ public class NoteRepository {
 
         HashMap<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/notes/" + noteId + "/title", title);
-        childUpdates.put("/notes/" + noteId + "//bodyText", bodyText);
+        childUpdates.put("/notes/" + noteId + "/bodyText", bodyText);
         firebaseDb.updateChildren(childUpdates);
     }
 
     public void deleteNote(final Note note) {
         if (note != null) {
             executors.diskIO().execute(() -> localDb.noteDao().deleteNotes(note));
+
+            int noteId = note.getId();
+            firebaseDb.child("notes").child(Integer.toString(noteId)).removeValue();
         }
     }
 }
