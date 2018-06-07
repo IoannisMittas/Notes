@@ -37,7 +37,7 @@ public class NoteListFragment extends Fragment {
     private static final  int RC_SIGN_IN = 100;
     private FirebaseUser user;
 
-    private static final boolean SIGN_IN_TESTING = false;
+    private static boolean SIGN_IN_TESTING = false;
 
     public static final String TAG = "NOTELIST_FRAGMENT ";
     public static final String EXTRA_NOTE_ID = "EXTRA_NOTE_ID";
@@ -88,6 +88,7 @@ public class NoteListFragment extends Fragment {
         // TODO DELETE AFTER TESTING
         if(!SIGN_IN_TESTING){
             viewModel.syncNotes();
+            SIGN_IN_TESTING = true;
         }
 
         // TODO enable after testing

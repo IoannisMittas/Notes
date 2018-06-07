@@ -5,10 +5,14 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 import android.util.Log;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.mittas.notes.data.LocalDatabase;
 import com.mittas.notes.data.Note;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +37,7 @@ public class NoteRepository {
                 notes -> observableNotes.postValue(notes));
     }
 
-    public static NoteRepository getInstance(final LocalDatabase localDb,final DatabaseReference firebaseDb, final AppExecutors executors) {
+    public static NoteRepository getInstance(final LocalDatabase localDb, final DatabaseReference firebaseDb, final AppExecutors executors) {
         if (INSTANCE == null) {
             INSTANCE = new NoteRepository(localDb, firebaseDb, executors);
         }
@@ -80,6 +84,24 @@ public class NoteRepository {
     }
 
     public void syncNotes() {
+        firebaseDb.child("notes").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Note> allNotes = new ArrayList<>();
+                for (DataSnapshot noteSnapshot : dataSnapshot.getChildren()) {
+                    Note note = noteSnapshot.getValue(Note.class);
+                   allNotes.add(note);
+                }
 
+                executors.diskIO().execute(() -> localDb.noteDao().insertNotes(allNotes));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting notes failed, log a message
+                Log.w("NoteRepository", "syncNotes:onCancelled", databaseError.toException());
+            }
+        });
     }
+
 }
