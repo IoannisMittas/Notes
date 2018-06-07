@@ -16,6 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.design.widget.FloatingActionButton;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.mittas.notes.R;
 import com.mittas.notes.data.Note;
 import com.mittas.notes.ui.create.CreateNoteActivity;
@@ -24,11 +28,20 @@ import com.mittas.notes.ui.list.gestures.SimpleItemTouchHelperCallback;
 import com.mittas.notes.viewmodel.NoteListViewModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 public class NoteListFragment extends Fragment {
+    private static final  int RC_SIGN_IN = 100;
+    private FirebaseUser user;
+
+    private static final boolean SIGN_IN_TESTING = false;
+
     public static final String TAG = "NOTELIST_FRAGMENT ";
     public static final String EXTRA_NOTE_ID = "EXTRA_NOTE_ID";
+
     NoteListViewModel viewModel;
     private NoteListAdapter adapter;
     private RecyclerView recyclerView;
@@ -59,7 +72,6 @@ public class NoteListFragment extends Fragment {
         return rootView;
     }
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -67,6 +79,52 @@ public class NoteListFragment extends Fragment {
         viewModel = ViewModelProviders.of(this).get(NoteListViewModel.class);
 
         subscribeUi();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // TODO DELETE AFTER TESTING
+        if(!SIGN_IN_TESTING){
+            viewModel.syncNotes();
+        }
+
+        // TODO enable after testing
+//        if (user == null) {
+//            signInWithFirebaseUI();
+//        }
+    }
+
+    private void signInWithFirebaseUI() {
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.GoogleBuilder().build());
+
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                RC_SIGN_IN);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+
+            if (resultCode == RESULT_OK) {
+                // Successfully signed in
+                user = FirebaseAuth.getInstance().getCurrentUser();
+            } else {
+                // Sign in failed. If response is null the user canceled the
+                // sign-in flow using the back button. Otherwise check
+                // response.getError().getErrorCode() and handle the error.
+                // ...
+            }
+        }
     }
 
     private void setupRecyclerView(View rootView) {
@@ -87,7 +145,6 @@ public class NoteListFragment extends Fragment {
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
     }
-
 
     private void subscribeUi() {
         viewModel.getAllNotes().observe(this, new Observer<List<Note>>() {

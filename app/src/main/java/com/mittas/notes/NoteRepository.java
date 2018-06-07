@@ -78,4 +78,8 @@ public class NoteRepository {
             firebaseDb.child("notes").child(Integer.toString(noteId)).removeValue();
         }
     }
+
+    public void syncNotes() {
+
+    }
 }

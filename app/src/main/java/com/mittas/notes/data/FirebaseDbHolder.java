@@ -10,6 +10,8 @@ public class FirebaseDbHolder{
    private DatabaseReference database;
 
    private FirebaseDbHolder(){
+       FirebaseDatabase.getInstance().setPersistenceEnabled(false);
+
        database = FirebaseDatabase.getInstance().getReference();
    }
 

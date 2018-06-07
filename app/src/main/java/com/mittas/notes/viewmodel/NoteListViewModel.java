@@ -38,4 +38,8 @@ public class NoteListViewModel extends AndroidViewModel{
     public void deleteNote(final Note note) {
                 repository.deleteNote(note);
     }
+
+    public void syncNotes() {
+        repository.syncNotes();
+    }
 }
