@@ -2,12 +2,15 @@ package com.mittas.notes.data;
 
 import android.content.Context;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class FirebaseDbHolder{
    private static FirebaseDbHolder INSTANCE;
    private DatabaseReference database;
+   priva
 
    private FirebaseDbHolder(){
        FirebaseDatabase.getInstance().setPersistenceEnabled(false);
@@ -28,6 +31,10 @@ public class FirebaseDbHolder{
 
     public DatabaseReference getDatabase() {
         return database;
+    }
+
+    public void onUserSignedIn() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     }
 }
 

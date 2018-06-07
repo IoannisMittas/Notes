@@ -34,15 +34,13 @@ import java.util.List;
 import static android.app.Activity.RESULT_OK;
 
 public class NoteListFragment extends Fragment {
+    public static final String EXTRA_NOTE_ID = "EXTRA_NOTE_ID";
+    public static final String TAG = "NOTELIST_FRAG";
+
     private static final  int RC_SIGN_IN = 100;
     private FirebaseUser user;
 
-    private static boolean SIGN_IN_TESTING = false;
-
-    public static final String TAG = "NOTELIST_FRAGMENT ";
-    public static final String EXTRA_NOTE_ID = "EXTRA_NOTE_ID";
-
-    NoteListViewModel viewModel;
+    private NoteListViewModel viewModel;
     private NoteListAdapter adapter;
     private RecyclerView recyclerView;
 
@@ -85,13 +83,12 @@ public class NoteListFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        // TODO DELETE AFTER TESTING
-        if(!SIGN_IN_TESTING){
-            viewModel.syncNotes();
-            SIGN_IN_TESTING = true;
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() == null) {
+            signInWithFirebaseUI();
         }
 
-        // TODO enable after testing
+
 //        if (user == null) {
 //            signInWithFirebaseUI();
 //        }
@@ -114,17 +111,22 @@ public class NoteListFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {
-            IdpResponse response = IdpResponse.fromResultIntent(data);
+            handleSignInWithFirebaseUI(resultCode, data);
+        }
+    }
 
-            if (resultCode == RESULT_OK) {
-                // Successfully signed in
-                user = FirebaseAuth.getInstance().getCurrentUser();
-            } else {
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
-            }
+    public void handleSignInWithFirebaseUI(int resultCode, Intent data) {
+        IdpResponse response = IdpResponse.fromResultIntent(data);
+
+        if (resultCode == RESULT_OK) {
+            // Successfully signed in
+            user = FirebaseAuth.getInstance().getCurrentUser();
+            viewModel.syncNotes();
+        } else {
+            // Sign in failed. If response is null the user canceled the
+            // sign-in flow using the back button. Otherwise check
+            // response.getError().getErrorCode() and handle the error.
+            // ...
         }
     }
 
