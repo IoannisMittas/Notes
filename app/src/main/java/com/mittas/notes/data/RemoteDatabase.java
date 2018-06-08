@@ -16,7 +16,9 @@ import java.util.List;
 
 public class RemoteDatabase {
     private static RemoteDatabase INSTANCE;
-    private DatabaseReference database;
+
+    private static DatabaseReference rootDefault;
+    private static DatabaseReference root;
 
     public interface syncRequestListener {
         void onSuccess(List<Note> notes);
@@ -27,7 +29,9 @@ public class RemoteDatabase {
     private RemoteDatabase() {
         FirebaseDatabase.getInstance().setPersistenceEnabled(false);
 
-        database = FirebaseDatabase.getInstance().getReference();
+        rootDefault = FirebaseDatabase.getInstance().getReference();
+
+        root = rootDefault;
     }
 
     public static RemoteDatabase getInstance() {
@@ -42,22 +46,22 @@ public class RemoteDatabase {
     }
 
     public void addNote(Note note, long noteId) {
-        database.child("notes").child(Long.toString(noteId)).setValue(note);
+        root.child("notes").child(Long.toString(noteId)).setValue(note);
     }
 
     public void updateNote(int noteId, String title, String bodyText) {
         HashMap<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/notes/" + noteId + "/title", title);
         childUpdates.put("/notes/" + noteId + "/bodyText", bodyText);
-        database.updateChildren(childUpdates);
+        root.updateChildren(childUpdates);
     }
 
     public void deleteNote(int noteId) {
-        database.child("notes").child(Integer.toString(noteId)).removeValue();
+        root.child("notes").child(Integer.toString(noteId)).removeValue();
     }
 
     public void addOnSyncRequestListener(RemoteDatabase.syncRequestListener listener) {
-        database.child("notes").addListenerForSingleValueEvent(new ValueEventListener() {
+        root.child("notes").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Note> allNotes = new ArrayList<>();
@@ -78,8 +82,16 @@ public class RemoteDatabase {
         });
     }
 
-    public void onUserSignedIn() {
+    public static void onUserSignedIn() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String ui = user.getUid();
+            root = rootDefault.child("users").child(ui);
+        }
+    }
+
+    public static void onUserSignedOut() {
+        root = rootDefault;
     }
 }
 

@@ -25,6 +25,7 @@ import com.mittas.notes.data.Note;
 import com.mittas.notes.ui.create.CreateNoteActivity;
 import com.mittas.notes.ui.detail.DetailActivity;
 import com.mittas.notes.ui.list.gestures.SimpleItemTouchHelperCallback;
+import com.mittas.notes.util.FirebaseHelper;
 import com.mittas.notes.viewmodel.NoteListViewModel;
 
 import java.util.ArrayList;
@@ -38,7 +39,6 @@ public class NoteListFragment extends Fragment {
     public static final String TAG = "NOTELIST_FRAG";
 
     private static final  int RC_SIGN_IN = 100;
-    private FirebaseUser user;
 
     private NoteListViewModel viewModel;
     private NoteListAdapter adapter;
@@ -83,15 +83,9 @@ public class NoteListFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() == null) {
+        if (!FirebaseHelper.isSignedIn()) {
             signInWithFirebaseUI();
         }
-
-
-//        if (user == null) {
-//            signInWithFirebaseUI();
-//        }
     }
 
     private void signInWithFirebaseUI() {
@@ -111,22 +105,10 @@ public class NoteListFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {
-            handleSignInWithFirebaseUI(resultCode, data);
-        }
-    }
-
-    public void handleSignInWithFirebaseUI(int resultCode, Intent data) {
-        IdpResponse response = IdpResponse.fromResultIntent(data);
-
-        if (resultCode == RESULT_OK) {
-            // Successfully signed in
-            user = FirebaseAuth.getInstance().getCurrentUser();
-            viewModel.syncNotes();
-        } else {
-            // Sign in failed. If response is null the user canceled the
-            // sign-in flow using the back button. Otherwise check
-            // response.getError().getErrorCode() and handle the error.
-            // ...
+            FirebaseHelper.handleSignInWithFirebaseUI(resultCode, data);
+            if(FirebaseHelper.isSignedIn()) {
+                viewModel.syncNotes();
+            }
         }
     }
 
