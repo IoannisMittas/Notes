@@ -19,7 +19,7 @@ package com.mittas.notes;
 import android.app.Application;
 
 import com.google.firebase.database.DatabaseReference;
-import com.mittas.notes.data.FirebaseDbHolder;
+import com.mittas.notes.data.RemoteDatabase;
 import com.mittas.notes.data.LocalDatabase;
 
 
@@ -41,11 +41,11 @@ public class BasicApp extends Application {
         return LocalDatabase.getInstance(this);
     }
 
-    public DatabaseReference getFirebaseDb() {
-        return FirebaseDbHolder.getInstance().getDatabase();
+    public RemoteDatabase getRemoteDatabase() {
+        return RemoteDatabase.getInstance();
     }
 
     public NoteRepository getRepository() {
-        return NoteRepository.getInstance(getLocalDatabase(), getFirebaseDb(), appExecutors);
+        return NoteRepository.getInstance(getLocalDatabase(), getRemoteDatabase(), appExecutors);
     }
 }
