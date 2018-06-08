@@ -69,40 +69,30 @@ public class NoteRepository {
     public void updateNoteById(int noteId, String title, String bodyText) {
         executors.diskIO().execute(() -> localDb.noteDao().updateNoteById(noteId, title, bodyText));
 
-        HashMap<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/notes/" + noteId + "/title", title);
-        childUpdates.put("/notes/" + noteId + "/bodyText", bodyText);
-        firebaseDb.updateChildren(childUpdates);
+        remoteDb.updateNote(noteId, title, bodyText);
     }
 
     public void deleteNote(final Note note) {
         if (note != null) {
             executors.diskIO().execute(() -> localDb.noteDao().deleteNotes(note));
 
-            int noteId = note.getId();
-            firebaseDb.child("notes").child(Integer.toString(noteId)).removeValue();
+            remoteDb.deleteNote(note.getId());
         }
     }
 
     public void syncNotes() {
-        firebaseDb.child("notes").addListenerForSingleValueEvent(new ValueEventListener() {
+        remoteDb.addOnSyncRequestListener(new RemoteDatabase.syncRequestListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Note> allNotes = new ArrayList<>();
-                for (DataSnapshot noteSnapshot : dataSnapshot.getChildren()) {
-                    Note note = noteSnapshot.getValue(Note.class);
-                   allNotes.add(note);
+            public void onSuccess(List<Note> allNotes) {
+                if(allNotes != null) {
+                    executors.diskIO().execute(() -> localDb.noteDao().insertNotes(allNotes));
                 }
-
-                executors.diskIO().execute(() -> localDb.noteDao().insertNotes(allNotes));
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting notes failed, log a message
-                Log.w("NoteRepository", "syncNotes:onCancelled", databaseError.toException());
+            public void onFailure(String message) {
+                // do nothing
             }
         });
     }
-
 }
