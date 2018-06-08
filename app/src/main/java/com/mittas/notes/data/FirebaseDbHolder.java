@@ -10,7 +10,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class FirebaseDbHolder{
    private static FirebaseDbHolder INSTANCE;
    private DatabaseReference database;
-   priva
+   private
 
    private FirebaseDbHolder(){
        FirebaseDatabase.getInstance().setPersistenceEnabled(false);
