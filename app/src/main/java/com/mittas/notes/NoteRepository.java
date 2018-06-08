@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.mittas.notes.data.LocalDatabase;
 import com.mittas.notes.data.Note;
+import com.mittas.notes.data.RemoteDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,13 +24,13 @@ import java.util.Map;
 public class NoteRepository {
     private static NoteRepository INSTANCE;
     private final LocalDatabase localDb;
-    private final DatabaseReference firebaseDb;
+    private final RemoteDatabase remoteDb;
     private final AppExecutors executors;
     private MediatorLiveData<List<Note>> observableNotes;
 
-    private NoteRepository(final LocalDatabase localDb, final DatabaseReference firebaseDb, final AppExecutors executors) {
+    private NoteRepository(final LocalDatabase localDb, final RemoteDatabase remoteDb, final AppExecutors executors) {
         this.localDb = localDb;
-        this.firebaseDb = firebaseDb;
+        this.remoteDb = remoteDb;
         this.executors = executors;
 
         observableNotes = new MediatorLiveData<>();
@@ -37,9 +38,9 @@ public class NoteRepository {
                 notes -> observableNotes.postValue(notes));
     }
 
-    public static NoteRepository getInstance(final LocalDatabase localDb, final DatabaseReference firebaseDb, final AppExecutors executors) {
+    public static NoteRepository getInstance(final LocalDatabase localDb, final RemoteDatabase remoteDb, final AppExecutors executors) {
         if (INSTANCE == null) {
-            INSTANCE = new NoteRepository(localDb, firebaseDb, executors);
+            INSTANCE = new NoteRepository(localDb, remoteDb, executors);
         }
         return INSTANCE;
     }
@@ -60,7 +61,7 @@ public class NoteRepository {
             executors.diskIO().execute(() -> {
                 long noteId = localDb.noteDao().insertNote(note);
 
-                firebaseDb.child("notes").child(Long.toString(noteId)).setValue(note);
+                remoteDb.addNote(note, noteId);
             });
         }
     }

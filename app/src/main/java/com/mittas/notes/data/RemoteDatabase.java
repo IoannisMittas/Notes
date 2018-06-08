@@ -1,26 +1,23 @@
 package com.mittas.notes.data;
 
-import android.content.Context;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class FirebaseDbHolder{
-   private static FirebaseDbHolder INSTANCE;
+public class RemoteDatabase {
+   private static RemoteDatabase INSTANCE;
    private DatabaseReference database;
-   private
 
-   private FirebaseDbHolder(){
+   private RemoteDatabase(){
        FirebaseDatabase.getInstance().setPersistenceEnabled(false);
 
        database = FirebaseDatabase.getInstance().getReference();
    }
 
-    public static FirebaseDbHolder getInstance() {
+    public static RemoteDatabase getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new FirebaseDbHolder();
+            INSTANCE = new RemoteDatabase();
         }
         return INSTANCE;
     }
@@ -29,9 +26,10 @@ public class FirebaseDbHolder{
         INSTANCE = null;
     }
 
-    public DatabaseReference getDatabase() {
-        return database;
-    }
+   public void addNote(Note note, long noteId) {
+       database.child("notes").child(Long.toString(noteId)).setValue(note);
+   }
+
 
     public void onUserSignedIn() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
