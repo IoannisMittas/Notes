@@ -5,6 +5,8 @@
     <string name="title_activity_detail">Details</string>
     <string name="title_activity_create_note">Create a note</string>
 
+    <string name="action_sign_out">Sign out</string>
+
     <string name="text_input_hint_create_title">Title</string>
     <string name="text_input_hint_create_body_text">Note</string>
 </resources>

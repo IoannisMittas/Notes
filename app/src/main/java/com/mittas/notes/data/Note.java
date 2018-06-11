@@ -30,10 +30,10 @@ public class Note {
         this.createdAt = createdAt;
     }
 
-    /**
-     * Firebase db will get the row id differently, so exclude id field
-     */
-    @Exclude
+//    /**
+//     * Firebase db will get the row id differently, so exclude id field
+//     */
+//    @Exclude
     public int getId() {
         return id;
     }

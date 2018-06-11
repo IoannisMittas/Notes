@@ -6,20 +6,18 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.design.widget.FloatingActionButton;
 
 import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.IdpResponse;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.mittas.notes.R;
 import com.mittas.notes.data.Note;
 import com.mittas.notes.ui.create.CreateNoteActivity;
@@ -31,8 +29,6 @@ import com.mittas.notes.viewmodel.NoteListViewModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static android.app.Activity.RESULT_OK;
 
 public class NoteListFragment extends Fragment {
     public static final String EXTRA_NOTE_ID = "EXTRA_NOTE_ID";
@@ -60,6 +56,8 @@ public class NoteListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_notelist, container, false);
+
+        setHasOptionsMenu(true);
 
         setupRecyclerView(rootView);
 
@@ -96,6 +94,7 @@ public class NoteListFragment extends Fragment {
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setAvailableProviders(providers)
+                        .setIsSmartLockEnabled(false)
                         .build(),
                 RC_SIGN_IN);
     }
@@ -109,6 +108,18 @@ public class NoteListFragment extends Fragment {
             if(FirebaseHelper.isSignedIn()) {
                 viewModel.syncNotes();
             }
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sign_out:
+                FirebaseHelper.handleSignOutWithFirebaseUI(getActivity());
+                signInWithFirebaseUI();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

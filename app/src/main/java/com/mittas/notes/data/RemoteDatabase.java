@@ -46,6 +46,10 @@ public class RemoteDatabase {
     }
 
     public void addNote(Note note, long noteId) {
+        // Using room and firebase Db, the id in firebase was being saved as
+        // id = 0. Have to manually set id to get it right.
+        note.setId((int) noteId);
+
         root.child("notes").child(Long.toString(noteId)).setValue(note);
     }
 
