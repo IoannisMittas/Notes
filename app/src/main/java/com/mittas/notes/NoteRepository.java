@@ -81,10 +81,13 @@ public class NoteRepository {
     }
 
     public void syncNotes() {
+        // Reset db for new data are to be fetched
+        executors.diskIO().execute(() -> localDb.clearAllTables());
+
         remoteDb.addOnSyncRequestListener(new RemoteDatabase.syncRequestListener() {
             @Override
             public void onSuccess(List<Note> allNotes) {
-                if(allNotes != null) {
+                if (allNotes != null) {
                     executors.diskIO().execute(() -> localDb.noteDao().insertNotes(allNotes));
                 }
             }
