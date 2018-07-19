@@ -20,6 +20,8 @@ public class Note {
 
     private Date createdAt;
 
+    private boolean isPinned;
+
     public Note(){
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
@@ -30,7 +32,7 @@ public class Note {
         this.createdAt = createdAt;
     }
 
-//    /**
+    //    /**
 //     * Firebase db will get the row id differently, so exclude id field
 //     */
 //    @Exclude
@@ -65,4 +67,13 @@ public class Note {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+    public boolean isPinned() {
+        return isPinned;
+    }
+
+    public void setPinned(boolean pinned) {
+        isPinned = pinned;
+    }
 }
+

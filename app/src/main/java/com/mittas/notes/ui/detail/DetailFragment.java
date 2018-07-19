@@ -107,5 +107,4 @@ public class DetailFragment extends Fragment {
             return false;
         });
     }
-
 }
