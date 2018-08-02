@@ -6,7 +6,12 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
-@Database(entities = {Note.class}, version = 1)
+import com.mittas.notes.data.dao.NoteDao;
+import com.mittas.notes.data.dao.PinnedNoteDao;
+import com.mittas.notes.data.entity.Note;
+import com.mittas.notes.data.entity.PinnedNote;
+
+@Database(entities = {Note.class, PinnedNote.class}, version = 1)
 @TypeConverters({DateConverter.class})
 public abstract class LocalDatabase extends RoomDatabase {
     private static LocalDatabase INSTANCE;
@@ -14,6 +19,8 @@ public abstract class LocalDatabase extends RoomDatabase {
     public static final String DATABASE_NAME = "notes_local_database";
 
     public abstract NoteDao noteDao();
+
+    public abstract PinnedNoteDao pinnedNoteDao();
 
     public static LocalDatabase getInstance(final Context context) {
         if (INSTANCE == null) {

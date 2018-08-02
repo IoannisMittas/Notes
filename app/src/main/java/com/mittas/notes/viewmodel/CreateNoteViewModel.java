@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.mittas.notes.BasicApp;
 import com.mittas.notes.NoteRepository;
-import com.mittas.notes.data.Note;
+import com.mittas.notes.data.entity.Note;
 
 public class CreateNoteViewModel extends AndroidViewModel{
     private NoteRepository noteRepository;

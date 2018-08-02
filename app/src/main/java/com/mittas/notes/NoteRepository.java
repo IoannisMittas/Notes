@@ -3,20 +3,12 @@ package com.mittas.notes;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
-import android.util.Log;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import com.mittas.notes.data.LocalDatabase;
-import com.mittas.notes.data.Note;
+import com.mittas.notes.data.entity.Note;
 import com.mittas.notes.data.RemoteDatabase;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Repository handling the work with notes.

@@ -7,7 +7,7 @@ import android.arch.lifecycle.MediatorLiveData;
 
 import com.mittas.notes.BasicApp;
 import com.mittas.notes.NoteRepository;
-import com.mittas.notes.data.Note;
+import com.mittas.notes.data.entity.Note;
 
 import java.util.List;
 

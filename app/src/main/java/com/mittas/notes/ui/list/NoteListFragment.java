@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 
 import com.firebase.ui.auth.AuthUI;
 import com.mittas.notes.R;
-import com.mittas.notes.data.Note;
+import com.mittas.notes.data.entity.Note;
 import com.mittas.notes.ui.create.CreateNoteActivity;
 import com.mittas.notes.ui.detail.DetailActivity;
 import com.mittas.notes.ui.list.gestures.SimpleItemTouchHelperCallback;

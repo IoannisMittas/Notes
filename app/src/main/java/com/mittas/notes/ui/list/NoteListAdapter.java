@@ -5,18 +5,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mittas.notes.R;
-import com.mittas.notes.data.Note;
+import com.mittas.notes.data.entity.Note;
 import com.mittas.notes.ui.list.gestures.ItemTouchHelperAdapter;
 
 import java.util.List;
 
 public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHolder> implements ItemTouchHelperAdapter {
     private List<Note> noteList;
-    private OnItemClickListener clickListener;
+    private OnItemClickListener noteClickListener;
+    private OnItemClickListener pinClickListener;
     private OnNoteSwipeCallback swipeCallback;
+
 
     public interface OnItemClickListener {
         void onItemClick(View view, int noteId);
@@ -26,10 +29,11 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
         void onNoteSwipe(Note note, int direction);
     }
 
-    public NoteListAdapter(List<Note> noteList, OnItemClickListener clickListener, OnNoteSwipeCallback swipeCallback) {
+    public NoteListAdapter(List<Note> noteList, OnItemClickListener noteClickListener,OnItemClickListener pinClickListener,  OnNoteSwipeCallback swipeCallback) {
         this.noteList = noteList;
-        this.clickListener = clickListener;
+        this.noteClickListener = noteClickListener;
         this.swipeCallback = swipeCallback;
+        this.pinClickListener = pinClickListener;
     }
 
     @NonNull
@@ -42,15 +46,18 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull NoteListAdapter.ViewHolder holder, int position) {
         Note note = noteList.get(position);
+
         holder.title.setText(note.getTitle());
         holder.bodyText.setText(note.getBodyText());
 
-        holder.itemView.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickListener.onItemClick(v, note.getId());
-            }
-        }));
+        holder.itemView.setOnClickListener((v -> noteClickListener.onItemClick(v, note.getId())));
+
+        if(note.isPinned()){
+            holder.pinToggle.setImageResource(R.drawable.ic_favourite_toggle_on);
+        } else {
+            holder.pinToggle.setImageResource(R.drawable.ic_favorite_toggle_off);
+        }
+        holder.pinToggle.setOnClickListener(v -> pinClickListener.onItemClick(v, note.getId()));
     }
 
     @Override
@@ -84,11 +91,13 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
     static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private TextView bodyText;
+        private ImageButton pinToggle;
 
         ViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.title_textview);
             bodyText = view.findViewById(R.id.bodytext_textview);
+            pinToggle = view.findViewById(R.id.pin_toggle);
         }
     }
 }

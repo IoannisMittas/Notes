@@ -1,11 +1,11 @@
-package com.mittas.notes.data;
+package com.mittas.notes.data.entity;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "pinned_note",
+@Entity(tableName = "pinned_notes",
         foreignKeys = @ForeignKey(entity = Note.class,
                 parentColumns = "id",
                 childColumns = "noteId",

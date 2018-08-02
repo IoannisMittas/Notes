@@ -1,4 +1,4 @@
-package com.mittas.notes.data;
+package com.mittas.notes.data.entity;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
@@ -22,7 +22,7 @@ public class Note {
 
     private boolean isPinned;
 
-    public Note(){
+    public Note() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
@@ -32,10 +32,8 @@ public class Note {
         this.createdAt = createdAt;
     }
 
-    //    /**
-//     * Firebase db will get the row id differently, so exclude id field
-//     */
-//    @Exclude
+    //Firebase db will get the row id differently, so exclude id field
+    @Exclude
     public int getId() {
         return id;
     }
