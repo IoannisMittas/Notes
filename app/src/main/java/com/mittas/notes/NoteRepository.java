@@ -98,8 +98,12 @@ public class NoteRepository {
             // Pin toggle has been clicked. So, if the note was pinned, we unpin it. And vice versa.
             if (isPinned) {
                 localDb.noteDao().unPinNote(noteId);
+
+                // TODO remote db isPinned = false
             } else {
                 localDb.noteDao().setNotePinned(noteId);
+
+                // TODO remote db isPinned = true
             }
         });
     }
