@@ -57,6 +57,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
         } else {
             holder.pinToggle.setImageResource(R.drawable.ic_favorite_toggle_off);
         }
+
         holder.pinToggle.setOnClickListener(v -> pinClickListener.onItemClick(v, note.getId()));
     }
 

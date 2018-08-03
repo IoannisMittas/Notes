@@ -90,4 +90,17 @@ public class NoteRepository {
             }
         });
     }
+
+    public void onPinToggleClicked(int noteId) {
+        executors.diskIO().execute(() -> {
+            boolean isPinned = localDb.noteDao().isNotePinned(noteId);
+
+            // Pin toggle has been clicked. So, if the note was pinned, we unpin it. And vice versa.
+            if (isPinned) {
+                localDb.noteDao().unPinNote(noteId);
+            } else {
+                localDb.noteDao().setNotePinned(noteId);
+            }
+        });
+    }
 }

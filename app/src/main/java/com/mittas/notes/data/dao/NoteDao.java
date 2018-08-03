@@ -18,7 +18,7 @@ public interface NoteDao {
     @Query("SELECT * FROM notes WHERE id = :id")
     LiveData<Note> getNoteById(int id);
 
-    @Query("SELECT * FROM notes")
+    @Query("SELECT * FROM notes ORDER BY isPinned DESC")
     LiveData<List<Note>> getAllNotes();
 
     @Insert(onConflict = REPLACE)
@@ -33,4 +33,17 @@ public interface NoteDao {
     @Delete
     void deleteNotes(Note... notes);
 
+    @Query("SELECT isPinned FROM notes WHERE id = :id")
+    boolean isNotePinned(int id);
+
+    // Room library limitation: have to hardcode in queries 1 as true, and 0 as false,
+    // as Room treats boolean as integer
+    @Query("UPDATE notes SET isPinned = 1 WHERE id = :id")
+    void setNotePinned(int id);
+
+    @Query("UPDATE notes SET isPinned = 0 WHERE id = :id")
+    void unPinNote(int id);
+
+    @Query("SELECT * FROM notes WHERE isPinned = 1")
+    LiveData<Note> getAllPinnedNotes();
 }

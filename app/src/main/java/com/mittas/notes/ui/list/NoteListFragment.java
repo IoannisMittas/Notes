@@ -47,10 +47,13 @@ public class NoteListFragment extends Fragment {
         startActivity(intent);
     };
 
+    private NoteListAdapter.OnItemClickListener pinClickListener = (view, noteId) -> {
+        viewModel.onPinToggleClicked(noteId);
+    };
+
     private NoteListAdapter.OnNoteSwipeCallback noteSwipeCallback = (note, direction) -> {
         viewModel.deleteNote(note);
     };
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -138,7 +141,7 @@ public class NoteListFragment extends Fragment {
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        adapter = new NoteListAdapter(new ArrayList<Note>(), itemClickListener, noteSwipeCallback);
+        adapter = new NoteListAdapter(new ArrayList<Note>(), itemClickListener, pinClickListener, noteSwipeCallback);
         recyclerView.setAdapter(adapter);
 
         ItemTouchHelper.Callback callback =

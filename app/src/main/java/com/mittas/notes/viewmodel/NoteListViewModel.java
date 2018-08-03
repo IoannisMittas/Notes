@@ -35,11 +35,15 @@ public class NoteListViewModel extends AndroidViewModel{
         return observableNotes;
     }
 
+    public void syncNotes() {
+        repository.syncNotes();
+    }
+
     public void deleteNote(final Note note) {
                 repository.deleteNote(note);
     }
 
-    public void syncNotes() {
-        repository.syncNotes();
+    public void onPinToggleClicked(final int noteId) {
+        repository.onPinToggleClicked(noteId);
     }
 }

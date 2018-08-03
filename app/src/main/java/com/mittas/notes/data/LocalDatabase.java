@@ -7,9 +7,7 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 import com.mittas.notes.data.dao.NoteDao;
-import com.mittas.notes.data.dao.PinnedNoteDao;
 import com.mittas.notes.data.entity.Note;
-import com.mittas.notes.data.entity.PinnedNote;
 
 @Database(entities = {Note.class, PinnedNote.class}, version = 1)
 @TypeConverters({DateConverter.class})
