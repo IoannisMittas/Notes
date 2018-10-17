@@ -88,9 +88,9 @@ public class NoteListFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        if (!FirebaseHelper.isSignedIn()) {
-            signInWithFirebaseUI();
-        }
+//        if (!FirebaseHelper.isSignedIn()) {
+//            signInWithFirebaseUI();
+//        }
     }
 
     private void signInWithFirebaseUI() {
