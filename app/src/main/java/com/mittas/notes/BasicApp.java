@@ -18,9 +18,10 @@ package com.mittas.notes;
 
 import android.app.Application;
 
-import com.google.firebase.database.DatabaseReference;
-import com.mittas.notes.data.RemoteDatabase;
+import com.instabug.library.Instabug;
+import com.instabug.library.invocation.InstabugInvocationEvent;
 import com.mittas.notes.data.LocalDatabase;
+import com.mittas.notes.data.RemoteDatabase;
 
 
 /**
@@ -35,6 +36,14 @@ public class BasicApp extends Application {
         super.onCreate();
 
         appExecutors = new AppExecutors();
+
+        initInstabug();
+    }
+
+    private void initInstabug() {
+        new Instabug.Builder(this, "92e39ccbe16756616796f992a07028ec")
+                .setInvocationEvents(InstabugInvocationEvent.SHAKE, InstabugInvocationEvent.SCREENSHOT)
+                .build();
     }
 
     public LocalDatabase getLocalDatabase() {
