@@ -18,8 +18,11 @@ package com.mittas.notes;
 
 import android.app.Application;
 
+import com.instabug.bug.BugReporting;
+import com.instabug.bug.PromptOption;
 import com.instabug.library.Instabug;
 import com.instabug.library.invocation.InstabugInvocationEvent;
+import com.instabug.library.ui.onboarding.WelcomeMessage;
 import com.mittas.notes.data.LocalDatabase;
 import com.mittas.notes.data.RemoteDatabase;
 
@@ -41,10 +44,33 @@ public class BasicApp extends Application {
     }
 
     private void initInstabug() {
+        // Instabug dialog can be invoked with events like shake of the phone, screen gestures, etc.
+        // In order to use it with the click of a menu button, like Qixxit for example, we need to set
+        // InstabugInvocationEvent.NONE in the builder
         new Instabug.Builder(this, "92e39ccbe16756616796f992a07028ec")
-                .setInvocationEvents(InstabugInvocationEvent.SHAKE, InstabugInvocationEvent.SCREENSHOT)
+                .setInvocationEvents(InstabugInvocationEvent.NONE)
                 .build();
+
+
+        // By default, instabug provides some onboarding information, for example
+        // prompts the user to shake the phone in order to provide feedback.We disable
+        // onboarding here.
+        Instabug.setWelcomeMessageState(WelcomeMessage.State.DISABLED);
+
+        // Change tint color here. We can use home24 orange :)
+        Instabug.setPrimaryColor(getResources().getColor(R.color.colorPrimary));
+
+        // By default, dialog can show 3 options: Report a problem, send improvement(feedback) and chat with us.
+        // If we don't want in app chat, we provide only options for bug and feedback
+        BugReporting.setPromptOptionsEnabled(PromptOption.BUG, PromptOption.FEEDBACK);
+
     }
+
+    // This will be invoked on the click of the menu button
+    public static void invokeInstabug() {
+        BugReporting.invoke();
+    }
+
 
     public LocalDatabase getLocalDatabase() {
         return LocalDatabase.getInstance(this);

@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.firebase.ui.auth.AuthUI;
+import com.mittas.notes.BasicApp;
 import com.mittas.notes.R;
 import com.mittas.notes.data.Note;
 import com.mittas.notes.ui.create.CreateNoteActivity;
@@ -124,6 +125,9 @@ public class NoteListFragment extends Fragment {
             case R.id.action_sign_out:
                 FirebaseHelper.handleSignOutWithFirebaseUI(getActivity());
                 signInWithFirebaseUI();
+                return true;
+            case R.id.action_invoke_instabug:
+                BasicApp.invokeInstabug();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

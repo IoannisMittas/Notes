@@ -5,4 +5,8 @@
     <item android:id="@+id/action_sign_out"
         android:title="@string/action_sign_out"
         app:showAsAction="never"/>
+
+    <item android:id="@+id/action_invoke_instabug"
+        android:title="Feedback"
+        app:showAsAction="ifRoom"/>
 </menu>
